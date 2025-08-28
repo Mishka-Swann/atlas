@@ -1,300 +1,289 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2822
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 ArialMT;}
-{\colortbl;\red255\green255\blue255;\red26\green26\blue26;\red255\green255\blue255;\red16\green60\blue192;
-}
-{\*\expandedcolortbl;;\cssrgb\c13333\c13333\c13333;\cssrgb\c100000\c100000\c100000;\cssrgb\c6667\c33333\c80000;
-}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\deftab720
-\pard\pardeftab720\partightenfactor0
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas - Dynamic Landing Page</title>
+    <!-- Tailwind CSS CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Michroma (Dystopian vibe for Atlas) and Courier New (typewriter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Courier+Prime&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS for the typewriter effect and overall page aesthetics */
+        body {
+            font-family: 'Inter', sans-serif; /* Using Inter font as per instructions */
+            background-color: #1a202c; /* Dark background as fallback */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full viewport height */
+            margin: 0;
+            overflow: hidden; /* Prevent scrollbars from typing effect and background */
+            position: relative; /* Needed for absolute positioning of canvas */
+        }
 
-\f0\fs20 \cf2 \cb3 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 <!DOCTYPE html>\
-<html lang="en">\
-<head>\
-\'a0 \'a0 <meta charset="UTF-8">\
-\'a0 \'a0 <meta name="viewport" content="width=device-width, initial-scale=1.0">\
-\'a0 \'a0 <title>Atlas - Dynamic Landing Page</title>\
-\'a0 \'a0 <!-- Tailwind CSS CDN for modern styling -->\
-\'a0 \'a0 <script src="{\field{\*\fldinst{HYPERLINK "https://cdn.tailwindcss.com/"}}{\fldrslt \cf4 \ul \ulc4 \strokec4 https://cdn.tailwindcss.com}}"></script>\
-\'a0 \'a0 <!-- Google Fonts for Michroma (Dystopian vibe for Atlas) and Courier New (typewriter) -->\
-\'a0 \'a0 <link href="{\field{\*\fldinst{HYPERLINK "https://fonts.googleapis.com/css2?family=Michroma&family=Courier+Prime&display=swap"}}{\fldrslt \cf4 \ul \ulc4 \strokec4 https://fonts.googleapis.com/css2?family=Michroma&family=Courier+Prime&display=swap}}" rel="stylesheet">\
-\'a0 \'a0 <style>\
-\'a0 \'a0 \'a0 \'a0 /* Custom CSS for the typewriter effect and overall page aesthetics */\
-\'a0 \'a0 \'a0 \'a0 body \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-family: 'Inter', sans-serif; /* Using Inter font as per instructions */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 background-color: #1a202c; /* Dark background as fallback */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 display: flex;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 justify-content: center;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 align-items: center;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 min-height: 100vh; /* Full viewport height */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 margin: 0;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 overflow: hidden; /* Prevent scrollbars from typing effect and background */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 position: relative; /* Needed for absolute positioning of canvas */\
-\'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 /* Canvas for the GPS coordinates effect */\
-\'a0 \'a0 \'a0 \'a0 #gpsCanvas \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 position: fixed; /* Position fixed to cover the entire viewport */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 top: 0;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 left: 0;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 width: 100%;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 height: 100%;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 z-index: -1; /* Place behind other content */\
-\'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 .typewriter-container \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 text-align: center;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 padding: 2rem;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black for a clean look */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 border-radius: 1rem; /* Rounded corners */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 max-width: 90%; /* Responsive width */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 width: 600px; /* Max width for larger screens */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 z-index: 1; /* Ensure content is above the canvas */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 position: relative; /* Needed for z-index to work */\
-\'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 /* Base styles for typewriter texts (headline, subtext) */\
-\'a0 \'a0 \'a0 \'a0 .typewriter-base \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 white-space: nowrap; /* Keep text on one line */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 overflow: hidden; /* Hide text until typed */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 border-right: .15em solid #d1d5db; /* Blinking cursor effect (light grey) */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 display: inline-block; /* Essential for animation to work with width */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 vertical-align: middle; /* Align cursor properly */\
-\'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 /* Specific styles for the main headline (Atlas) */\
-\'a0 \'a0 \'a0 \'a0 .typewriter-headline \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-family: 'Michroma', sans-serif; /* Dystopian font for Atlas */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-size: 3.5rem; /* Larger font size for impact */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-weight: bold;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 color: #4B0082; /* Dark gradient purple */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 text-shadow: 0 0 8px rgba(75, 0, 130, 0.8), 0 0 15px rgba(75, 0, 130, 0.5); /* Subtle drop shadow */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 /* Animation properties will be set by JavaScript for dynamic control */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 text-wrap: balance; /* Optimizes line breaks */\
-\'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 /* Specific styles for the subtext */\
-\'a0 \'a0 \'a0 \'a0 .typewriter-subtext \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-family: 'Courier New', Courier, monospace; /* Typewriter font for subtext */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-size: 1.5rem; /* Slightly smaller font for subtext */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 color: #e5e7eb; /* Even lighter grey for subtext */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 margin-top: 1rem;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 /* Animation properties will be set by JavaScript for dynamic control */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 text-wrap: balance; /* Optimizes line breaks */\
-\'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 /* Style for the button text to match the typewriter font */\
-\'a0 \'a0 \'a0 \'a0 .button-text-font \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-family: 'Courier New', Courier, monospace;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 color: #A0A0A0; /* Changed to a light medium gray */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-weight: bold;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-size: 1.125rem; /* Tailwind's default text-lg equivalent for buttons */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 opacity: 0; /* Initially hidden for soft appear effect */\
-\'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 /* Keyframes for the soft appear (fade-in) effect */\
-\'a0 \'a0 \'a0 \'a0 @keyframes fadeIn \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 from \{ opacity: 0; \}\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 to \{ opacity: 1; \}\
-\'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 /* Class to apply the soft appear animation */\
-\'a0 \'a0 \'a0 \'a0 .fade-in-animation \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 animation: fadeIn 1s ease-out forwards; /* 1 second fade, ease-out timing, stays visible */\
-\'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 /* Keyframes for the typing animation (controlled by JS now for flexibility) */\
-\'a0 \'a0 \'a0 \'a0 @keyframes typing \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 from \{ width: 0 \}\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 to \{ width: 100% \}\
-\'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 /* Keyframes for the blinking cursor */\
-\'a0 \'a0 \'a0 \'a0 @keyframes blink-caret \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 from, to \{ border-color: transparent \}\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 50% \{ border-color: #d1d5db; \} /* Light grey cursor */\
-\'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 /* Responsive adjustments for smaller screens */\
-\'a0 \'a0 \'a0 \'a0 @media (max-width: 768px) \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 .typewriter-headline \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-size: 2.2rem; /* Adjusted for better fit on tablets */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 .typewriter-subtext \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-size: 1.1rem; /* Adjusted for better fit on tablets */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 .button-text-font \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-size: 0.95rem; /* Adjusted for better fit on tablets */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 @media (max-width: 480px) \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 .typewriter-headline \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-size: 1.8rem; /* Adjusted for better fit on small mobiles */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 .typewriter-subtext \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-size: 0.9rem; /* Adjusted for better fit on small mobiles */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 .typewriter-container \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 padding: 1.2rem; /* Slightly reduced padding */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 .button-text-font \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 font-size: 0.8rem; /* Adjusted for better fit on small mobiles */\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\'a0 \'a0 \'a0 \'a0 \}\
-\'a0 \'a0 </style>\
-</head>\
-<body>\
-\'a0 \'a0 <!-- Canvas for the GPS coordinates effect -->\
-\'a0 \'a0 <canvas id="gpsCanvas"></canvas>\
-\
-\'a0 \'a0 <div class="typewriter-container">\
-\'a0 \'a0 \'a0 \'a0 <h1 id="typed-headline" class="typewriter-base typewriter-headline"></h1>\
-\'a0 \'a0 \'a0 \'a0 <p id="typed-subtext" class="typewriter-base typewriter-subtext"></p>\
-\'a0 \'a0 \'a0 \'a0 <div class="mt-8">\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 <!-- Changed button background to a darker gray/black -->\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 <button id="instructing-soon-button" class="bg-black hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 <span id="button-text" class="button-text-font">Instructing Soon</span>\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 </button>\
-\'a0 \'a0 \'a0 \'a0 </div>\
-\'a0 \'a0 </div>\
-\
-\'a0 \'a0 <script>\
-\'a0 \'a0 \'a0 \'a0 document.addEventListener('DOMContentLoaded', () => \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const headlineElement = document.getElementById('typed-headline');\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const subtextElement = document.getElementById('typed-subtext');\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const buttonTextElement = document.getElementById('button-text');\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const instructingSoonButton = document.getElementById('instructing-soon-button');\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const headlineText = "Atlas";\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const subtextText = "AI instructs, Humans Obey";\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const buttonTextContent = "Instructing Soon"; // Static text for the button\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const typingSpeed = 100; // Milliseconds per character for typing effects\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const delayBetweenTexts = 1000; // Milliseconds delay before next text starts typing\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const delayBeforeButtonAppear = 500; // Delay before button text starts fading in\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Function to type out a given text into a given element\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 function typeWriter(element, text, callback) \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 let charIndex = 0;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 element.textContent = ''; // Clear content before typing\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 element.style.width = '0'; // Start with 0 width for animation\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 element.style.borderRight = '.15em solid #d1d5db'; // Ensure cursor is visible for typing\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 element.style.animation = `typing $\{text.length * (typingSpeed / 1000)\}s steps($\{text.length\}, end) forwards, blink-caret .75s step-end infinite`;\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 function typeChar() \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 if (charIndex < text.length) \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 element.textContent += text.charAt(charIndex);\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 charIndex++;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 setTimeout(typeChar, typingSpeed);\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \} else \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 element.style.borderRight = 'none'; // Remove cursor after typing\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 if (callback) \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 callback();\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 typeChar();\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Initially hide the button text using CSS opacity\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 buttonTextElement.style.opacity = '0';\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Start typing the headline\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 typeWriter(headlineElement, headlineText, () => \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // After headline is typed, wait a bit, then start typing subtext\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 setTimeout(() => \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 typeWriter(subtextElement, subtextText, () => \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // After subtext is typed, wait a bit, then apply fade-in to button text\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 setTimeout(() => \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 buttonTextElement.textContent = buttonTextContent; // Set the static text\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 buttonTextElement.classList.add('fade-in-animation'); // Trigger fade-in\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}, delayBeforeButtonAppear);\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \});\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}, delayBetweenTexts);\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \});\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // --- GPS Coordinates Background Effect ---\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const canvas = document.getElementById('gpsCanvas');\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const ctx = canvas.getContext('2d');\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 let W, H;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 let currentX = 0; // Current X position for the streaming line\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 let lineContent = ''; // The full string of coordinates for the line\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const fontSize = 14; // Font size for GPS coordinates\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const scrollSpeed = 2.0; // Increased from 1.0 to 2.0 for faster movement\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const charsPerCoordinate = 20; // Approximate length of a GPS coordinate string\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const coordinatesToGenerate = 5; // Number of coordinates to generate for the initial line segment\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Function to generate a random GPS coordinate string\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 function generateGpsCoordinate() \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const lat = (Math.random() * 180 - 90).toFixed(4); // Latitude -90 to +90\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 const lon = (Math.random() * 360 - 180).toFixed(4); // Longitude -180 to +180\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 return `Lat:$\{lat\}, Lon:$\{lon\} \'a0`; // Add some space for separation\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Function to set canvas size and initialize the line content\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 function setCanvasSize() \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 W = window.innerWidth;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 H = window.innerHeight;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 canvas.width = W;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 canvas.height = H;\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Generate enough coordinates to fill the screen horizontally\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 lineContent = '';\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 for (let i = 0; i < Math.ceil(W / (fontSize * charsPerCoordinate)) + coordinatesToGenerate; i++) \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 lineContent += generateGpsCoordinate();\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 currentX = 0; // Reset scroll position\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Initialize canvas size and content on load\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 setCanvasSize();\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Handle window resize\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 window.addEventListener('resize', setCanvasSize);\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Drawing the coordinates\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 function drawGpsCoordinates() \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Semi-transparent black rectangle to fade out old characters\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'; // Increased opacity to 0.5 for a sharper, less blurry effect\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 ctx.fillRect(0, 0, W, H);\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 ctx.fillStyle = 'rgba(192, 192, 192, 0.2)'; // Light grey with low opacity\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 ctx.font = fontSize + 'px monospace'; // Monospace font for consistent width\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Draw the streaming line\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // The line is drawn multiple times to ensure continuous coverage as it scrolls\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 ctx.fillText(lineContent, currentX, H / 2); // Draw in the middle of the screen\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 ctx.fillText(lineContent, currentX + ctx.measureText(lineContent).width, H / 2);\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 ctx.fillText(lineContent, currentX - ctx.measureText(lineContent).width, H / 2);\
-\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Update the X position for scrolling\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 currentX -= scrollSpeed;\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Reset X position if the line has scrolled completely off-screen to the left\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 if (currentX < -ctx.measureText(lineContent).width) \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 currentX = 0;\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Optionally regenerate content to keep it fresh\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 lineContent = '';\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 for (let i = 0; i < Math.ceil(W / (fontSize * charsPerCoordinate)) + coordinatesToGenerate; i++) \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 lineContent += generateGpsCoordinate();\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Animation loop for the GPS effect\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 function animateGps() \{\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 drawGpsCoordinates();\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0 requestAnimationFrame(animateGps);\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \}\
-\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 // Start the GPS animation\
-\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 animateGps();\
-\'a0 \'a0 \'a0 \'a0 \});\
-\'a0 \'a0 </script>\
-</body>\
-</html>}
+        /* Canvas for the GPS coordinates effect */
+        #gpsCanvas {
+            position: fixed; /* Position fixed to cover the entire viewport */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place behind other content */
+        }
+
+        .typewriter-container {
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black for a clean look */
+            border-radius: 1rem; /* Rounded corners */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+            max-width: 90%; /* Responsive width */
+            width: 600px; /* Max width for larger screens */
+            z-index: 1; /* Ensure content is above the canvas */
+            position: relative; /* Needed for z-index to work */
+        }
+
+        /* Base styles for typewriter texts (headline, subtext) */
+        .typewriter-base {
+            white-space: nowrap; /* Keep text on one line */
+            overflow: hidden; /* Hide text until typed */
+            border-right: .15em solid #d1d5db; /* Blinking cursor effect (light grey) */
+            display: inline-block; /* Essential for animation to work with width */
+            vertical-align: middle; /* Align cursor properly */
+        }
+
+        /* Specific styles for the main headline (Atlas) */
+        .typewriter-headline {
+            font-family: 'Michroma', sans-serif; /* Dystopian font for Atlas */
+            font-size: 3.5rem; /* Larger font size for impact */
+            font-weight: bold;
+            color: #4B0082; /* Dark gradient purple */
+            text-shadow: 0 0 8px rgba(75, 0, 130, 0.8), 0 0 15px rgba(75, 0, 130, 0.5); /* Subtle drop shadow */
+            /* Animation properties will be set by JavaScript for dynamic control */
+            text-wrap: balance; /* Optimizes line breaks */
+        }
+
+        /* Specific styles for the subtext */
+        .typewriter-subtext {
+            font-family: 'Courier New', Courier, monospace; /* Typewriter font for subtext */
+            font-size: 1.5rem; /* Slightly smaller font for subtext */
+            color: #e5e7eb; /* Even lighter grey for subtext */
+            margin-top: 1rem;
+            /* Animation properties will be set by JavaScript for dynamic control */
+            text-wrap: balance; /* Optimizes line breaks */
+        }
+
+        /* Style for the button text to match the typewriter font */
+        .button-text-font {
+            font-family: 'Courier New', Courier, monospace;
+            color: #A0A0A0; /* Changed to a light medium gray */
+            font-weight: bold;
+            font-size: 1.125rem; /* Tailwind's default text-lg equivalent for buttons */
+            opacity: 0; /* Initially hidden for soft appear effect */
+        }
+
+        /* Keyframes for the soft appear (fade-in) effect */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Class to apply the soft appear animation */
+        .fade-in-animation {
+            animation: fadeIn 1s ease-out forwards; /* 1 second fade, ease-out timing, stays visible */
+        }
+
+        /* Keyframes for the typing animation (controlled by JS now for flexibility) */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* Keyframes for the blinking cursor */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #d1d5db; } /* Light grey cursor */
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .typewriter-headline {
+                font-size: 2.2rem; /* Adjusted for better fit on tablets */
+            }
+            .typewriter-subtext {
+                font-size: 1.1rem; /* Adjusted for better fit on tablets */
+            }
+            .button-text-font {
+                font-size: 0.95rem; /* Adjusted for better fit on tablets */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .typewriter-headline {
+                font-size: 1.8rem; /* Adjusted for better fit on small mobiles */
+            }
+            .typewriter-subtext {
+                font-size: 0.9rem; /* Adjusted for better fit on small mobiles */
+            }
+            .typewriter-container {
+                padding: 1.2rem; /* Slightly reduced padding */
+            }
+            .button-text-font {
+                font-size: 0.8rem; /* Adjusted for better fit on small mobiles */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Canvas for the GPS coordinates effect -->
+    <canvas id="gpsCanvas"></canvas>
+
+    <div class="typewriter-container">
+        <h1 id="typed-headline" class="typewriter-base typewriter-headline"></h1>
+        <p id="typed-subtext" class="typewriter-base typewriter-subtext"></p>
+        <div class="mt-8">
+            <!-- Changed button background to a darker gray/black -->
+            <button id="instructing-soon-button" class="bg-black hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+                <span id="button-text" class="button-text-font">Instructing Soon</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const headlineElement = document.getElementById('typed-headline');
+            const subtextElement = document.getElementById('typed-subtext');
+            const buttonTextElement = document.getElementById('button-text');
+            const instructingSoonButton = document.getElementById('instructing-soon-button');
+
+            const headlineText = "Atlas";
+            const subtextText = "AI instructs, Humans Obey";
+            const buttonTextContent = "Instructing Soon"; // Static text for the button
+
+            const typingSpeed = 100; // Milliseconds per character for typing effects
+            const delayBetweenTexts = 1000; // Milliseconds delay before next text starts typing
+            const delayBeforeButtonAppear = 500; // Delay before button text starts fading in
+
+            // Function to type out a given text into a given element
+            function typeWriter(element, text, callback) {
+                let charIndex = 0;
+                element.textContent = ''; // Clear content before typing
+                element.style.width = '0'; // Start with 0 width for animation
+                element.style.borderRight = '.15em solid #d1d5db'; // Ensure cursor is visible for typing
+                element.style.animation = `typing ${text.length * (typingSpeed / 1000)}s steps(${text.length}, end) forwards, blink-caret .75s step-end infinite`;
+
+                function typeChar() {
+                    if (charIndex < text.length) {
+                        element.textContent += text.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(typeChar, typingSpeed);
+                    } else {
+                        element.style.borderRight = 'none'; // Remove cursor after typing
+                        if (callback) {
+                            callback();
+                        }
+                    }
+                }
+                typeChar();
+            }
+
+            // Initially hide the button text using CSS opacity
+            buttonTextElement.style.opacity = '0';
+
+            // Start typing the headline
+            typeWriter(headlineElement, headlineText, () => {
+                // After headline is typed, wait a bit, then start typing subtext
+                setTimeout(() => {
+                    typeWriter(subtextElement, subtextText, () => {
+                        // After subtext is typed, wait a bit, then apply fade-in to button text
+                        setTimeout(() => {
+                            buttonTextElement.textContent = buttonTextContent; // Set the static text
+                            buttonTextElement.classList.add('fade-in-animation'); // Trigger fade-in
+                        }, delayBeforeButtonAppear);
+                    });
+                }, delayBetweenTexts);
+            });
+
+            // --- GPS Coordinates Background Effect ---
+            const canvas = document.getElementById('gpsCanvas');
+            const ctx = canvas.getContext('2d');
+
+            let W, H;
+            let currentX = 0; // Current X position for the streaming line
+            let lineContent = ''; // The full string of coordinates for the line
+            const fontSize = 14; // Font size for GPS coordinates
+            const scrollSpeed = 2.0; // Increased from 1.0 to 2.0 for faster movement
+            const charsPerCoordinate = 20; // Approximate length of a GPS coordinate string
+            const coordinatesToGenerate = 5; // Number of coordinates to generate for the initial line segment
+
+            // Function to generate a random GPS coordinate string
+            function generateGpsCoordinate() {
+                const lat = (Math.random() * 180 - 90).toFixed(4); // Latitude -90 to +90
+                const lon = (Math.random() * 360 - 180).toFixed(4); // Longitude -180 to +180
+                return `Lat:${lat}, Lon:${lon}  `; // Add some space for separation
+            }
+
+            // Function to set canvas size and initialize the line content
+            function setCanvasSize() {
+                W = window.innerWidth;
+                H = window.innerHeight;
+                canvas.width = W;
+                canvas.height = H;
+
+                // Generate enough coordinates to fill the screen horizontally
+                lineContent = '';
+                for (let i = 0; i < Math.ceil(W / (fontSize * charsPerCoordinate)) + coordinatesToGenerate; i++) {
+                    lineContent += generateGpsCoordinate();
+                }
+                currentX = 0; // Reset scroll position
+            }
+
+            // Initialize canvas size and content on load
+            setCanvasSize();
+
+            // Handle window resize
+            window.addEventListener('resize', setCanvasSize);
+
+            // Drawing the coordinates
+            function drawGpsCoordinates() {
+                // Semi-transparent black rectangle to fade out old characters
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'; // Increased opacity to 0.5 for a sharper, less blurry effect
+                ctx.fillRect(0, 0, W, H);
+
+                ctx.fillStyle = 'rgba(192, 192, 192, 0.2)'; // Light grey with low opacity
+                ctx.font = fontSize + 'px monospace'; // Monospace font for consistent width
+
+                // Draw the streaming line
+                // The line is drawn multiple times to ensure continuous coverage as it scrolls
+                ctx.fillText(lineContent, currentX, H / 2); // Draw in the middle of the screen
+                ctx.fillText(lineContent, currentX + ctx.measureText(lineContent).width, H / 2);
+                ctx.fillText(lineContent, currentX - ctx.measureText(lineContent).width, H / 2);
+
+
+                // Update the X position for scrolling
+                currentX -= scrollSpeed;
+
+                // Reset X position if the line has scrolled completely off-screen to the left
+                if (currentX < -ctx.measureText(lineContent).width) {
+                    currentX = 0;
+                    // Optionally regenerate content to keep it fresh
+                    lineContent = '';
+                    for (let i = 0; i < Math.ceil(W / (fontSize * charsPerCoordinate)) + coordinatesToGenerate; i++) {
+                        lineContent += generateGpsCoordinate();
+                    }
+                }
+            }
+
+            // Animation loop for the GPS effect
+            function animateGps() {
+                drawGpsCoordinates();
+                requestAnimationFrame(animateGps);
+            }
+
+            // Start the GPS animation
+            animateGps();
+        });
+    </script>
+</body>
+</html>
